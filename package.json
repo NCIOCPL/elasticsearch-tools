@@ -1,0 +1,31 @@
+{
+  "name": "estools",
+  "version": "0.0.0",
+  "description": "A tool to perform common ElasticSearch commands for NCI's setup",
+  "private": true,
+  "bin": {
+    "estools": "./bin/estools"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "author": {
+    "name": "Bryan Pizzillo",
+    "email": "",
+    "url": "."
+  },
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "license": "MIT",
+  "bugs": ".",
+  "dependencies": {
+    "autocmdr": "~0.0.7",
+    "commander": "~2.0.0",
+    "elasticsearch": "^10.1.2",
+    "lodash": "^4.0.0",
+    "moment": "^2.11.1"
+  },
+  "devDependencies": {}
+}
