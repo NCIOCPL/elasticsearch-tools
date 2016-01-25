@@ -26,10 +26,22 @@ function OldSnapshots(program) {
 		.command('oldsnapshots <repository>')
 		.version('0.0.0')
 		.description('Gets a list of all ES snapshots older than an amount of time.  If the <repository> name is invalid an error will occur.')
-		.option('-n --num_days <numdays>', 'The number of days to get snapshots for. (default: 7)', parseInt, 7)
-		.option('-s --server <server>', 'The elasticsearch node IP or Name to connect to. (default: localhost)', 'localhost')
-		.option('-p --port <port>', 'The elasticsearch node port to connect to. (default: 9200)', parseInt, 9200)		
-		.option('-v --verbose', 'Should the output be verbose')		
+		.option(
+			'-n --num_days <numdays>', 
+			'The number of days to get snapshots for. (default: 7)', 
+			function(val, def) {
+
+				var parsed = parseInt(val);
+
+				if (isNaN(parsed)) {
+					console.log("Number of Days must be a valid number!");
+					process.exit(200);
+				}
+
+				return parsed;
+			},
+			7
+		)
 		.action(internals.commandAction);	
 };
 
@@ -42,31 +54,20 @@ function OldSnapshots(program) {
 internals.commandAction = function(repository, cmd) {
 
 	//Add Verbose Check
-	if (cmd.verbose) {
+	if (cmd.parent.verbose) {
 		console.log("Repository: " + repository);
 		console.log("Number of Days: " + cmd.num_days);
-		console.log("Server: " + cmd.server);
-		console.log("Port: " + cmd.port);
+		console.log("Server: " + cmd.parent.server); //Program Option
+		console.log("Port: " + cmd.parent.port); //Program Option
 	}
-
-	if (isNaN(cmd.num_days)) {
-		console.log("Number of Days must be a number!");
-		process.exit(1);
-	}
-
-	if (isNaN(cmd.port)) {
-		console.log("The port must be a valid number");	
-		process.exit(2);
-	}
-
 
 	//So we should be good to go here.
 	internals.getSnapshotsFromRepo(
 		{
 			repo: repository,
 			num_days: cmd.num_days,
-			server: cmd.server,
-			port: cmd.port
+			server: cmd.parent.server,
+			port: cmd.parent.port
 		}, function(err, results) {
 			if (err) {
 				process.stderr.write("Error occurred fetching snapshots. " + err);

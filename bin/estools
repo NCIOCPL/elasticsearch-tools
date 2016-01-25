@@ -10,6 +10,29 @@ require('autocmdr/lib/package')(program);
 require('autocmdr/lib/help')(program);
 
 program
+	//Common options to ALL commands.
+	.option(
+		'-s --server <server>', 
+		'The elasticsearch node IP or Name to connect to. (default: localhost)', 
+		'localhost'
+	)
+	.option(
+		'-p --port <port>', 
+		'The elasticsearch node port to connect to. (default: 9200)', 
+		function(val, def) {
+
+			var parsed = parseInt(val);
+
+			if (isNaN(parsed)) {
+				console.log("The port must be a valid number");	
+				process.exit(100);
+			}
+
+			return parsed;
+		},
+		9200
+	)		
+	.option('-v --verbose', 'Should the output be verbose or not (default: false)')	
 	.parse(process.argv);
 
 if (program.args.length < 1 ) {
