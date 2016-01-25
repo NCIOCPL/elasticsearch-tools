@@ -4,10 +4,17 @@
 var program  = require('commander');
 
 require('autocmdr/lib/logger')(program);
-require('autocmdr/lib/loader')(program);
+// Not using the autoloader since .svn folders will be picked up. :(
+//require('autocmdr/lib/loader')(program);
 require('autocmdr/lib/completion')(program);
 require('autocmdr/lib/package')(program);
 require('autocmdr/lib/help')(program);
+
+//Load up our commands
+require('../cmds/oldsnapshots.js')(program);
+require('../cmds/indexesforalias.js')(program);
+require('../cmds/isindexavailable.js')(program);
+
 
 program
 	//Common options to ALL commands.
