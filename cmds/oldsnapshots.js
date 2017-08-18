@@ -89,7 +89,7 @@ internals.commandAction = function(repository, cmd) {
  * @param  {[type]} opts            the options for the query
  * @param {Number} opts.num_days - The number of days to query
  * @param {String} opts.repo - A repository name
- * @param {String} opts.server - The ElasticSearch server IP or hostname
+ * @param {String} opts.server - The ElasticSearch server IP or hostname including protocol
  * @param {Number} opts.port - The Elaticsearch server port 
  * @param  {[type]} resultsCallback callback function for handling results.
  * @return {[type]}                 [description]
@@ -103,7 +103,7 @@ internals.getSnapshotsFromRepo = function(opts, resultsCallback) {
 
 	//Setup elastic search client.
 	var client = new elasticsearch.Client({
-		host: 'http://' + opts.server + ':' + opts.port,
+		host: opts.server + ':' + opts.port,
 		log: 'error'
 	});
 

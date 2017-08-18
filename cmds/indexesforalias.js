@@ -47,7 +47,7 @@ internals.commandAction = function(aliasname, cmd) {
 
 	//Setup elastic search client.
 	var client = new elasticsearch.Client({
-		host: 'http://' + cmd.parent.server + ':' + cmd.parent.port,
+		host: cmd.parent.server + ':' + cmd.parent.port,
 		log: 'error'
 	});
 

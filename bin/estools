@@ -20,8 +20,8 @@ program
 	//Common options to ALL commands.
 	.option(
 		'-s --server <server>', 
-		'The elasticsearch node IP or Name to connect to. (default: localhost)', 
-		'localhost'
+		'The elasticsearch node IP or Name to connect to including protocol. (default: http://localhost)', 
+		'http://localhost'
 	)
 	.option(
 		'-p --port <port>', 
