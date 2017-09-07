@@ -41,13 +41,15 @@ internals.commandAction = function(aliasname, cmd) {
 	//Add Verbose Check
 	if (cmd.parent.verbose) {
 		console.log("Alias Name: " + aliasname);
+		console.log("Protocol: " + cmd.parent.protocol);
 		console.log("Server: " + cmd.parent.server);
 		console.log("Port: " + cmd.parent.port);
+		console.log(cmd.parent.protocol + '://' + cmd.parent.server + ':' + cmd.parent.port);
 	}
 
 	//Setup elastic search client.
 	var client = new elasticsearch.Client({
-		host: 'http://' + cmd.parent.server + ':' + cmd.parent.port,
+		host: cmd.parent.protocol + '://' + cmd.parent.server + ':' + cmd.parent.port,
 		log: 'error'
 	});
 

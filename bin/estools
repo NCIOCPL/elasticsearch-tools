@@ -18,6 +18,8 @@ require('../cmds/isindexavailable.js')(program);
 
 program
 	//Common options to ALL commands.
+	.option('-P, --protocol <protocol>', 'http or https. (default: http)', 'http')	
+
 	.option(
 		'-s --server <server>', 
 		'The elasticsearch node IP or Name to connect to. (default: localhost)', 

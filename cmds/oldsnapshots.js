@@ -57,8 +57,10 @@ internals.commandAction = function(repository, cmd) {
 	if (cmd.parent.verbose) {
 		console.log("Repository: " + repository);
 		console.log("Number of Days: " + cmd.num_days);
+		console.log("Protocol: " + cmd.parent.protocol);
 		console.log("Server: " + cmd.parent.server); //Program Option
 		console.log("Port: " + cmd.parent.port); //Program Option
+		console.log(cmd.parent.protocol + '://' + cmd.parent.server + ':' + cmd.parent.port);
 	}
 
 	//So we should be good to go here.
@@ -66,6 +68,7 @@ internals.commandAction = function(repository, cmd) {
 		{
 			repo: repository,
 			num_days: cmd.num_days,
+			protocol: cmd.parent.protocol,
 			server: cmd.parent.server,
 			port: cmd.parent.port
 		}, function(err, results) {
@@ -103,7 +106,7 @@ internals.getSnapshotsFromRepo = function(opts, resultsCallback) {
 
 	//Setup elastic search client.
 	var client = new elasticsearch.Client({
-		host: 'http://' + opts.server + ':' + opts.port,
+		host: opts.protocol + '://' + opts.server + ':' + opts.port,
 		log: 'error'
 	});
 
